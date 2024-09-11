@@ -32,7 +32,7 @@ const StepOne = ({ onNext }: StepOneProps) => {
     return (
         <div>
             <h3 className="text-3xl font-bold">Register for an account</h3>
-            <p className="text-gray-500 text-sm mt-3">👏🏻 Let's start with a little bit of information</p>
+            <p className="text-gray-500 text-sm mt-3">👏🏻 Let&apos;s start with a little bit of information</p>
 
             <div className="mt-10">
                 <FormProvider>
