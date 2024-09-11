@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		backgroundImage: {
+			'formImage': "url('../public/bg-image.jpg')"
+		},
   		colors: {
   			background: 'var(--background)',
   			foreground: 'var(--foreground)'
