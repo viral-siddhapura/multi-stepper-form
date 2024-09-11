@@ -20,6 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         where: eq(users.email, email),
                     });
 
+                    
                     if (!user || !user.password) {
                         return null;
                     }
