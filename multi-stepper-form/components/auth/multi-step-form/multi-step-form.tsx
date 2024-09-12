@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Progress } from "@/components/ui/progress";
 import StepOne from "./step-one";
+import StepTwo from "./step-two";
 
 export default function MultiStepForm() {
 
@@ -49,6 +50,11 @@ export default function MultiStepForm() {
                 {
                     currentStep === 1 && (
                         <StepOne onNext={handleNextStep} />
+                    )
+                }
+                {
+                    currentStep === 2 && (
+                        <StepTwo onNext={handleNextStep} onBack={handlePreviousStep} />
                     )
                 }
             </div>
