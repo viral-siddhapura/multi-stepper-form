@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { RegisterSchema } from "@/types/register-schema";
+import { useState } from "react";
 
 export const thirdStepSchema = z.object({
     password: z.string().min(8, {
@@ -84,6 +86,84 @@ const StepThree = ({
             <p className="text-gray-500 text-sm mt-3">
                 🥷 Make sure you choose a strong one
             </p>
+
+            <div className="mt-10">
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-10"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Password:</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            placeholder="Enter password here"
+                                            type="password"
+                                            onChange={(e) => {
+                                                field.onChange(e);
+                                                checkPasswordStrength(
+                                                    e.target.value
+                                                );
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                    {passwordStrength && (
+                                        <p
+                                            className={`text-sm mt-2 ${passwordStrength === "strong"
+                                                    ? "text-green-500"
+                                                    : passwordStrength === "medium"
+                                                        ? "text-yellow-500"
+                                                        : "text-red-500"
+                                                }`}
+                                        >
+                                            Password strength: {passwordStrength}
+                                        </p>
+                                    )}
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormControl>
+                                        <Input
+                                            {...field}
+                                            placeholder="Confirm password here"
+                                            type="password"
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {passwordMismatch && (
+                            <p className="text-red-500 text-sm text-center">
+                                The passwords do not match
+                            </p>
+                        )}
+                        <div className="flex justify-between">
+                            <Button onClick={onBack} variant="secondary">
+                                Back
+                            </Button>
+                            <Button
+                                type="submit"
+                                disabled={form.formState.isSubmitting}
+                            >
+                                Submit
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 };
