@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Progress } from "@/components/ui/progress";
 import StepOne from "./step-one";
 import StepTwo from "./step-two";
+import StepThree from "./step-three";
 
 export default function MultiStepForm() {
 
@@ -55,6 +56,15 @@ export default function MultiStepForm() {
                 {
                     currentStep === 2 && (
                         <StepTwo onNext={handleNextStep} onBack={handlePreviousStep} />
+                    )
+                }
+                {
+                    currentStep === 3 && (
+                        <StepThree
+                            onBack={handlePreviousStep}
+                            handleSubmit={finalSubmit}
+                            formData={formData}
+                        ></StepThree>
                     )
                 }
             </div>
