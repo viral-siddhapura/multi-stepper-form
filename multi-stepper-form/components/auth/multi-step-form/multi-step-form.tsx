@@ -5,9 +5,16 @@ import { Progress } from "@/components/ui/progress";
 import StepOne from "./step-one";
 import StepTwo from "./step-two";
 import StepThree from "./step-three";
+import { useAction } from "next-safe-action/hooks";
+import { RegisterAccount } from "@/server/actions/register";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { z } from "zod";
+import { RegisterSchema } from "@/types/register-schema";
 
 export default function MultiStepForm() {
 
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [formData, setFormData] = useState({
         email: "",
@@ -39,6 +46,24 @@ export default function MultiStepForm() {
                 return "";
         }
     };
+
+    const { execute } = useAction(RegisterAccount, {
+        onSuccess(data) {
+            if (data.data?.error) {
+                toast.error(data.data.error);
+                router.push("/login");
+            } else if (data.data?.success) {
+                toast.success(data.data?.success);
+                router.push("/login");
+            }
+        },
+    });
+
+    const finalSubmit = (
+        values: z.infer<typeof RegisterSchema>
+    ) => {
+        execute(values);
+    }
 
     return (
         <div className="w-2/3 p-8 flex flex-col">
