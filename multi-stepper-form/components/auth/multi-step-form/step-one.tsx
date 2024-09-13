@@ -6,6 +6,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 type StepOneProps = {
     onNext: (values: z.infer<typeof firstStepSchema>) => void;
@@ -111,6 +112,16 @@ const StepOne = ({ onNext }: StepOneProps) => {
                     </form>
                 </Form>
             </div>
+
+            <p className="text-center text-gray-600 text-sm mt-6">
+                Already have an account?{" "}
+                <Link
+                    href="/login"
+                    className="text-blue-600 hover:underline"
+                >
+                    Login
+                </Link>
+            </p>
         </div>
     )
 }
